@@ -33,7 +33,7 @@
         }
         public override string ToString()
         {
-            return "{!" + TypeName + "." + PropertyName + "}";
+            return EmailTokenReplacer.GetEmailTokenString(TypeName, PropertyName);
         }
     }
 }

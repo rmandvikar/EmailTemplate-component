@@ -268,7 +268,13 @@ namespace rm.EmailTemplateManager
             }
             return tokens;
         }
-
+        /// <summary>
+        /// Get email token format from <paramref name="typeName"/> and <paramref name="propertyName"/>.
+        /// </summary>
+        internal static string GetEmailTokenString(string typeName, string propertyName)
+        {
+            return string.Format("{{!{0}.{1}}}", typeName, propertyName);
+        }
         #endregion
     }
 }
