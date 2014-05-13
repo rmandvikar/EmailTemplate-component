@@ -44,6 +44,15 @@ namespace rm.EmailTemplateManagerTest
             });
         }
 
+        [Test(Description = "Does not fail on replacing repeated args.")]
+        public void Replace_args_repeated_01()
+        {
+            Assert.DoesNotThrow(() =>
+            {
+                var message1 = wrapper1.Replace(EmailTemplateType.Template1, data, data);
+            });
+        }
+
         [Test(Description = "Replace by not specifying invalid tokens.")]
         public void Replace_ALLvalidtokens_01()
         {

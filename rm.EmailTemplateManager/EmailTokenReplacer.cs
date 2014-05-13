@@ -135,8 +135,14 @@ namespace rm.EmailTemplateManager
                         if (token != null)
                         {
                             // found arg's property corresponding to the token
-                            var propertyValue = property.GetValue(arg);
-                            tokenToValueMap.Add(token.ToString(), propertyValue.ToString());
+                            string propertyValue;
+                            var tokenKey = token.ToString();
+                            tokenToValueMap.TryGetValue(tokenKey, out propertyValue);
+                            if (propertyValue == null)
+                            {
+                                propertyValue = property.GetValue(arg).ToString();
+                                tokenToValueMap.Add(tokenKey, propertyValue);
+                            }
                         }
                     }
                 }
