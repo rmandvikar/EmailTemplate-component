@@ -36,7 +36,7 @@ namespace rm.EmailTemplateManagerTest
         }
 
         [Test(Description = "Fail on replacing invalid tokens.")]
-        public void Replace_validtokens_02()
+        public void Replace_invalidtokens_01()
         {
             Assert.Throws<ApplicationException>(() =>
             {
