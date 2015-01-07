@@ -118,33 +118,38 @@ namespace rm.EmailTemplateManager
             params object[] args)
         {
             var tokenToValueMap = new Dictionary<string, string>();
-            // first reflect on args and find a matching token for given type, property 
+            // first reflect on args and get value for token's type, property 
             // rather than using token to find matching type and property among args
             foreach (var arg in args)
             {
-                // first, get propertyName->token map for typeName
+                // first: get propertyName->token map for typeName
                 Dictionary<string, EmailToken> propertyToTokensMap;
-                typepropertyToTokensMap.TryGetValue(GetTypeName(arg), out propertyToTokensMap);
-                if (propertyToTokensMap != null)
+                var argType = arg.GetType();
+                typepropertyToTokensMap.TryGetValue(GetTypeName(argType), out propertyToTokensMap);
+                // this arg's type is not in tokens, skip it
+                if (propertyToTokensMap == null)
                 {
-                    foreach (var property in arg.GetType().GetProperties())
+                    continue;
+                }
+                foreach (var propertyName in propertyToTokensMap.Keys)
+                {
+                    var token = propertyToTokensMap[propertyName];
+                    var tokenKey = token.ToString();
+                    // arg's property value is already added, continue (possible when 2 arg are of same type)
+                    if (tokenToValueMap.ContainsKey(tokenKey))
                     {
-                        // second, get token for propertyName
-                        EmailToken token;
-                        propertyToTokensMap.TryGetValue(property.Name, out token);
-                        if (token != null)
-                        {
-                            // found arg's property corresponding to the token
-                            string propertyValue;
-                            var tokenKey = token.ToString();
-                            tokenToValueMap.TryGetValue(tokenKey, out propertyValue);
-                            if (propertyValue == null)
-                            {
-                                propertyValue = property.GetValue(arg).ToString();
-                                tokenToValueMap.Add(tokenKey, propertyValue);
-                            }
-                        }
+                        continue;
                     }
+                    // second: get propertyInfo for propertyName in arg
+                    var property = argType.GetProperty(propertyName);
+                    // arg does not have propertyName property, skip it
+                    if (property == null)
+                    {
+                        continue;
+                    }
+                    // save arg's property value corresponding to the token
+                    var propertyValue = property.GetValue(arg).ToString();
+                    tokenToValueMap.Add(tokenKey, propertyValue);
                 }
             }
             return tokenToValueMap;
@@ -152,9 +157,8 @@ namespace rm.EmailTemplateManager
         /// <summary>
         /// Get arg type's name. Empty if arg is anonymous type.
         /// </summary>
-        private string GetTypeName(object arg)
+        private string GetTypeName(Type type)
         {
-            var type = arg.GetType();
             if (Attribute.IsDefined(type, typeof(CompilerGeneratedAttribute), false)
                 && type.IsGenericType
                 && type.Name.StartsWith("<>") && type.Name.Contains("AnonymousType")
