@@ -85,5 +85,14 @@ namespace rm.EmailTemplateManagerTest
             Assert.AreEqual("So many victimized Richard Parkers had to mean something. #martel #lifeOfPi", message2.Body);
             Assert.NotNull(message2);
         }
+
+        [Test(Description = "Replace with primitive types.")]
+        public void Replace_propertyvaluenull_01()
+        {
+            var userWithNullValue = new User() { Value = null };
+            var message2 = wrapper2.Replace(EmailTemplateType.Template3, data, userWithNullValue, user, new { Book = "lifeOfPi" }, new { Author = "martel" });
+            Assert.AreEqual("So many victimized RichardParkerParkers had to mean something. What is the secret of island? Pi.", message2.Body);
+            Assert.NotNull(message2);
+        }
     }
 }

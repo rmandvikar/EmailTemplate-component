@@ -147,8 +147,13 @@ namespace rm.EmailTemplateManager
                     {
                         continue;
                     }
-                    // save arg's property value corresponding to the token
-                    var propertyValue = property.GetValue(arg).ToString();
+                    // save arg's property value corresponding to the token if not null
+                    var propertyValueObject = property.GetValue(arg);
+                    if (propertyValueObject == null)
+                    {
+                        continue;
+                    }
+                    var propertyValue = propertyValueObject.ToString();
                     tokenToValueMap.Add(tokenKey, propertyValue);
                 }
             }
