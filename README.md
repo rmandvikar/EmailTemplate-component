@@ -23,7 +23,7 @@ For a sample template below, the token `{!Data.Email}` can be added without chan
 
 #####Example:
 
-Certain sensitive tokens (ex: `{!User.CreditCard}`) can be included by specifying a list of invalid tokens and those are not replaced. If the invalid tokens are not specified then any token is valid. 
+Certain sensitive tokens (ex: `{!User.CreditCard}`) can be excluded by specifying a list of invalid tokens and those are not replaced. If the invalid tokens are not specified then any token is valid. 
 
 ```c#
 // specifies invalid tokens
