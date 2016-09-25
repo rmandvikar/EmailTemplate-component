@@ -20,9 +20,7 @@ namespace rm.EmailTemplateManager
                 .SingleOrDefault();
             if (template == null)
             {
-                throw new ApplicationException(
-                    string.Format("{0} missing in EmailTemplates.config.", emailTemplateType)
-                    );
+                throw new ApplicationException($"{emailTemplateType} missing in EmailTemplates.config.");
             }
             return Convert(template);
         }

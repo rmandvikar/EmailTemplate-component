@@ -256,7 +256,7 @@ namespace rm.EmailTemplateManager
                     tokenBuffer.Append(token.ToString() + nl);
                 }
                 throw new ApplicationException(
-                    string.Format("text still has token(s).{0}{0}tokens:{0}{1}{0}{0}text:{0}{2}", nl, tokenBuffer, text)
+                    $"text still has token(s).{nl}{nl}tokens:{nl}{tokenBuffer}{nl}{nl}text:{nl}{text}"
                     );
             }
             return text;
@@ -282,7 +282,7 @@ namespace rm.EmailTemplateManager
         /// </summary>
         internal static string GetEmailTokenString(string typeName, string propertyName)
         {
-            return string.Format("{{!{0}.{1}}}", typeName, propertyName);
+            return $"{{!{typeName}.{propertyName}}}";
         }
         #endregion
     }
