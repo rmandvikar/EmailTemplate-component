@@ -12,11 +12,11 @@ For a sample template below, the token `{!Data.Email}` can be added without chan
 
 ```xml
 <emailTemplate id="Template1">
-  <to>{!Data.Email}</to>
-  <from>noreply@domain.com</from>
-  <subject>Hello {!Data.Value1}{!Data.Value2}!</subject>
-  <body>
-    So many victimized {!Data.Value1} {!Data.Value2}s had to mean something. #{!.Author} #{!.Book}
+	<to>{!Data.Email}</to>
+	<from>noreply@domain.com</from>
+	<subject>Hello {!Data.Value1}{!Data.Value2}!</subject>
+	<body>
+		So many victimized {!Data.Value1} {!Data.Value2}s had to mean something. #{!.Author} #{!.Book}
   </body>
 </emailTemplate>
 ```
@@ -28,13 +28,13 @@ Certain sensitive tokens (ex: `{!User.CreditCard}`) can be excluded by specifyin
 ```c#
 // specifies invalid tokens
 EmailTemplateManagerWrapper wrapper1 = new EmailTemplateManagerWrapper(
-    new EmailTemplateConfigFetcher(), new EmailTokenReplacer(
-        new string[] { "{!Data.Secret}" } 
-    ));
+	new EmailTemplateConfigFetcher(), new EmailTokenReplacer(
+		new string[] { "{!Data.Secret}" } 
+	));
 // does NOT specify invalid tokens so any token is valid
 EmailTemplateManagerWrapper wrapper2 = new EmailTemplateManagerWrapper(
-    new EmailTemplateConfigFetcher(), new EmailTokenReplacer()
-    );
+	new EmailTemplateConfigFetcher(), new EmailTokenReplacer()
+	);
 // argument
 var data = new Data()
 {
