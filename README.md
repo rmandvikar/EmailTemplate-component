@@ -3,10 +3,10 @@ EmailTemplate-component
 
 Replaces tokens in email template.
 
-####Explanation:
+#### Explanation:
 Email Template contains tokens in format `{!TypeName.PropertyName}` for email fields as To, From, Subject, and Body. The email template replacer logic uses .Net Reflection to dynamically replace tokens with their appropriate values from the arguments. The advantage of using reflection is that the replacer logic need not change after adding additional tokens to the template; only the caller logic does.
 
-#####Sample Template:
+##### Sample Template:
 
 For a sample template below, the token `{!Data.Email}` can be added without changing email template replacer logic or caller logic. The email templates are fetched from a config file (xml based) and could be fetched from database instead. 
 
@@ -21,7 +21,7 @@ For a sample template below, the token `{!Data.Email}` can be added without chan
 </emailTemplate>
 ```
 
-#####Example:
+##### Example:
 
 Certain sensitive tokens (ex: `{!User.CreditCard}`) can be excluded by specifying a list of invalid tokens and those are not replaced. If the invalid tokens are not specified then any token is valid. 
 
